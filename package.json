@@ -1,0 +1,30 @@
+{
+  "name": "photo-grid",
+  "version": "1.0.0",
+  "description": "A fully responsive, lightweight and fast image grid plugin with no dependencies",
+  "main": "grid.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Johan Stenehall",
+    "url": "https://stenehall.se"
+  },
+  "license": 
+  {
+    "type": "MIT",
+    "url": "https://github.com/stenehall/photo-grid/blob/master/LICENSE.md"
+  },
+  "bugs": "https://github.com/stenehall/photo-grid/issues",
+  "keywords": [
+    "photo",
+    "photos",
+    "gallery",
+    "photogallery",
+    "grid",
+    "photo-grid",
+    "image-grid",
+    "fluid",
+    "responsive"
+  ]
+}
