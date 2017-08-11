@@ -4,18 +4,23 @@
   "description": "A fully responsive, lightweight and fast image grid plugin with no dependencies",
   "main": "grid.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "uglifyjs grid.js -o grid.min.js"
   },
   "author": {
     "name": "Johan Stenehall",
     "url": "https://stenehall.se"
   },
-  "license": 
-  {
+  "license": {
     "type": "MIT",
     "url": "https://github.com/stenehall/photo-grid/blob/master/LICENSE.md"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stenehall/photo-grid.git"
+  },
   "bugs": "https://github.com/stenehall/photo-grid/issues",
+  "homepage": "https://stenehall.github.io/photo-grid",
   "keywords": [
     "photo",
     "photos",
@@ -26,5 +31,8 @@
     "image-grid",
     "fluid",
     "responsive"
-  ]
+  ],
+  "devDependencies": {
+    "uglify-es": "^3.0.27"
+  }
 }

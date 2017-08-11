@@ -39,9 +39,9 @@ images.
 </ul>
 ```
 
-By default the images base width will be `200px` this can be changed using the
+By default the images base height will be `200px` this can be changed using the
 data attribute `data-gridBasis`.
 
 ## Demo
 
-[Here's a demo of what this could look like](stenehall.github.io/photo-grid)
+[Here's a demo of what this could look like](https://stenehall.github.io/photo-grid)

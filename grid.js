@@ -1,4 +1,4 @@
-const originalGridBasis = 200
+const defaultGridBasis = 200
 
 const imageLoaded = (elm, image, gridBasis) => {
   // We'll be using the ratio to shrink each image
@@ -9,11 +9,13 @@ const imageLoaded = (elm, image, gridBasis) => {
 
   // We'll then let each element grow dependent on it's width/height ratio.
   elm.style.flexGrow = ratio
+
+  // We're ready to show the photo to the public.
   elm.classList.add('photo-grid-loaded')
 }
 
 const imageRatio = gridBasis => elm => {
-  const image = elm.querySelector(':scope > img')
+  const image = elm.querySelector(':scope img')
   if (image.complete) {
     imageLoaded(elm, image, gridBasis)
   } else {
@@ -24,13 +26,12 @@ const imageRatio = gridBasis => elm => {
 const buildGrid = grid => {
   const gridBasis = grid.dataset.gridBasis || defaultGridBasis
   Array.from(grid.children).forEach(imageRatio(gridBasis))
+
+  // The fake elements are used to make the last few images get decent sized.
   appendFakeElement(grid, gridBasis)
 }
 
-const findGrids = () => {
-  const grids = Array.from(document.querySelectorAll('.photo-grid'))
-  grids.forEach(buildGrid)
-}
+const findGrids = () => Array.from(document.querySelectorAll('.photo-grid')).forEach(buildGrid)
 
 const appendFakeElement = (grid, gridBasis) => {
   const li = document.createElement('li')
@@ -43,23 +44,19 @@ const appendFakeElement = (grid, gridBasis) => {
 const addCss= () => {
   const css = `
 .photo-grid {
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-ms-flex-wrap: wrap;
-	flex-wrap: wrap;
-	margin: 2px;
+  display: flex;
+  flex-wrap: wrap;
   padding: 0;
   list-style:none;
 }
 .photo-grid img {
-	width: 100%;
+  width: 100%;
 }
 .photo-grid > li {
-	position: relative;
-	margin: 2px;
-	line-height: 0;
-	cursor: pointer;
+  position: relative;
+  margin: 2px;
+  line-height: 0;
+  cursor: pointer;
   display: none;
 }
 
@@ -70,7 +67,7 @@ const addCss= () => {
 
 .photo-grid > .photo-grid-loaded {
   display: initial;
-} 
+}
 `
 
   const sheet = document.createElement('style')
