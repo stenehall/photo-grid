@@ -59,12 +59,10 @@ const addCss= () => {
   cursor: pointer;
   display: none;
 }
-
 .photo-grid > .photo-grid-fake {
   margin: 0 2px;
   display: initial;
 }
-
 .photo-grid > .photo-grid-loaded {
   display: initial;
 }
