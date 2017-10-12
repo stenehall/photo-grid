@@ -41,7 +41,7 @@ const appendFakeElement = (grid, gridBasis) => {
   Array.from(Array(10)).forEach(() => grid.appendChild(li.cloneNode(true)))
 }
 
-const addCss= () => {
+const addCss = () => {
   const css = `
 .photo-grid {
   display: flex;
@@ -73,11 +73,12 @@ const addCss= () => {
   document.head.appendChild(sheet)
 }
 
+addCss()
+
 document.addEventListener(
   'DOMContentLoaded',
   () => {
-    addCss() 
     findGrids()
   },
-  false,
+  false
 )
