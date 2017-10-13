@@ -1,44 +1,56 @@
+/* @flow */
 const defaultGridBasis = 200
+
+const effectAll = (func: (a: any) => void) => iterable => {
+  for (const x of iterable) {
+    func(x)
+  }
+}
 
 const imageLoaded = (elm, image, gridBasis) => {
   // We'll be using the ratio to shrink each image
   const ratio = image.width / image.height
 
-  // This is the basis for our object.
-  elm.style.flexBasis = gridBasis * ratio + 'px'
+  if (elm instanceof HTMLElement) {
+    // This is the basis for our object.
+    elm.style.flexBasis = gridBasis * ratio + 'px'
 
-  // We'll then let each element grow dependent on it's width/height ratio.
-  elm.style.flexGrow = ratio
+    // We'll then let each element grow dependent on it's width/height ratio.
+    elm.style.flexGrow = ratio.toString()
 
-  // We're ready to show the photo to the public.
-  elm.classList.add('photo-grid-loaded')
-}
-
-const imageRatio = gridBasis => elm => {
-  const image = elm.querySelector(':scope img')
-  if (image.complete) {
-    imageLoaded(elm, image, gridBasis)
-  } else {
-    image.onload = () => imageLoaded(elm, image, gridBasis)
+    // We're ready to show the photo to the public.
+    elm.classList.add('photo-grid-loaded')
   }
 }
 
-const buildGrid = grid => {
-  const gridBasis = grid.dataset.gridBasis || defaultGridBasis
-  Array.from(grid.children).forEach(imageRatio(gridBasis))
+const imageRatio = (gridBasis: number) => (elm: HTMLElement) => {
+  const image = elm.querySelector(':scope img')
+  if(image instanceof HTMLImageElement) {
+    if (image.complete) {
+      imageLoaded(elm, image, gridBasis)
+    } else {
+      image.onload = () => imageLoaded(elm, image, gridBasis)
+    }
+  }
+}
+
+const buildGrid = (grid: HTMLElement) => {
+  const gridBasis = parseInt(grid.dataset.gridBasis || defaultGridBasis, 10)
+  effectAll(imageRatio(gridBasis))(grid.children)
 
   // The fake elements are used to make the last few images get decent sized.
   appendFakeElement(grid, gridBasis)
 }
 
-const findGrids = () => Array.from(document.querySelectorAll('.photo-grid')).forEach(buildGrid)
+const findGrids = () => effectAll(buildGrid)(document.querySelectorAll('.photo-grid'))
 
 const appendFakeElement = (grid, gridBasis) => {
   const li = document.createElement('li')
   li.classList.add('photo-grid-fake')
   li.style.flexBasis = gridBasis * (4 / 3) + 'px'
-  li.style.flexGrow = 4 / 3
-  Array.from(Array(10)).forEach(() => grid.appendChild(li.cloneNode(true)))
+  li.style.flexGrow = (4 / 3).toString()
+
+  effectAll(() => {grid.appendChild(li.cloneNode(true))})(Array(10))
 }
 
 const addCss = () => {
@@ -67,10 +79,10 @@ const addCss = () => {
   display: initial;
 }
 `
-
-  const sheet = document.createElement('style')
-  sheet.innerHTML = css
-  document.head.appendChild(sheet)
+    const sheet = Object.assign(document.createElement('style'), {innerHTML: css})
+    if(document.head) {
+      document.head.appendChild(sheet)
+    }
 }
 
 addCss()
