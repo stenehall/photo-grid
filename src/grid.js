@@ -1,11 +1,8 @@
 /* @flow */
 const defaultGridBasis = 200
 
-const effectAll = (func: (a: any) => void) => iterable => {
-  for (const x of iterable) {
-    func(x)
-  }
-}
+const findGrids = () => effectAll(buildGrid)(document.querySelectorAll('.photo-grid'))
+const effectAll = (func: (a: any) => void) => iterable => { for (const x of iterable) func(x) }
 
 const imageLoaded = (elm, image, gridBasis) => {
   // We'll be using the ratio to shrink each image
@@ -41,8 +38,6 @@ const buildGrid = (grid: HTMLElement) => {
   // The fake elements are used to make the last few images get decent sized.
   appendFakeElement(grid, gridBasis)
 }
-
-const findGrids = () => effectAll(buildGrid)(document.querySelectorAll('.photo-grid'))
 
 const appendFakeElement = (grid, gridBasis) => {
   const li = document.createElement('li')
@@ -85,6 +80,7 @@ const addCss = () => {
     }
 }
 
+// Add the css needed. This could potentially be broken out to a css file
 addCss()
 
 document.addEventListener(

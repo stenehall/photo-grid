@@ -5,7 +5,8 @@
   "main": "grid.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "uglifyjs grid.js -o grid.min.js"
+    "build": "babel src/ -d lib/",
+    "prepublish": "yarn run build"
   },
   "author": {
     "name": "Johan Stenehall",
@@ -33,6 +34,8 @@
     "responsive"
   ],
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
     "uglify-es": "^3.0.27"
   }
 }
