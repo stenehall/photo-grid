@@ -23,7 +23,7 @@ const imageLoaded = (elm, image, gridBasis) => {
 const imageRatio = (gridBasis: number) => (elm: HTMLElement) => {
   const image = elm.querySelector(':scope img')
   if(image instanceof HTMLImageElement) {
-    if (image.complete) {
+    if (image && image.complete) {
       imageLoaded(elm, image, gridBasis)
     } else {
       image.onload = () => imageLoaded(elm, image, gridBasis)

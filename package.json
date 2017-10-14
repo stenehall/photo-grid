@@ -5,7 +5,7 @@
   "main": "grid.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src/ -d lib/",
+    "build": "babel --minified -s true src/ -d lib/",
     "prepublish": "yarn run build"
   },
   "author": {
